@@ -35,13 +35,15 @@
         android:value="9rgGZyfwGlnpbYO4sh9GrWH5ukNFWeBs"
         >
     </meta-data>
-
+    <meta-data android:value="YOUR_APP_KEY" android:name="5c46c3a9f1f556ae1e000336"/>
+    <meta-data android:value="Channel ID" android:name="android"/>
     <service
         android:name="com.baidu.location.f"
         android:enabled="true"
         android:process=":remote"
-        ></service>
-    <activity android:name=".MainActivity">
+        />
+    <activity android:name=".MainActivity"
+        android:screenOrientation="portrait">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 

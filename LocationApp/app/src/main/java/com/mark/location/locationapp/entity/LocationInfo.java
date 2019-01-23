@@ -12,12 +12,14 @@ import java.io.Serializable;
 public class LocationInfo implements Serializable {
   public double longitude;
   public double latitude;
+  public float radius;
   public Address address;
   public String time;
 
-  public LocationInfo(double longitude, double latitude, Address address, String time) {
+  public LocationInfo(double longitude, double latitude, float radius, Address address, String time) {
     this.longitude = longitude;
     this.latitude = latitude;
+    this.radius = radius;
     this.address = address;
     this.time = time;
   }

@@ -33,6 +33,7 @@ public class LocationHelper {
     if (clientOption == null) genLocationOption(DEF_TIME_INTERVAL, true);
     client.setLocOption(clientOption);
     if (locationListener != null) client.registerLocationListener(locationListener);
+
     client.start();
   }
 
@@ -44,11 +45,12 @@ public class LocationHelper {
     clientOption = new LocationClientOption();
     clientOption.setIgnoreKillProcess(true);
     clientOption.setIsNeedAddress(true);
+    clientOption.setLocationNotify(false);
     clientOption.setOpenGps(true);
     clientOption.setCoorType("gcj02");
     clientOption.setScanSpan(timeInterval * 1000);
     clientOption.setIsNeedLocationDescribe(true);
-    clientOption.setLocationMode(LocationClientOption.LocationMode.Device_Sensors);
+    clientOption.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
     if (isNeedNotification) {
       Notification notification = genNotification();
       client.enableLocInForeground(1001, notification);
