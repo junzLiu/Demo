@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
+
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.google.gson.Gson;
 import com.mark.location.locationapp.entity.LocationInfo;
 import com.mark.location.locationapp.utils.LocationHelper;
+import com.tencent.bugly.crashreport.CrashReport;
 
 public class MainActivity extends AppCompatActivity {
   TextView tv;
@@ -19,19 +21,39 @@ public class MainActivity extends AppCompatActivity {
     tv = findViewById(R.id.tv);
     LocationHelper.getInstance().setLocationListener(new BDAbstractLocationListener() {
       @Override public void onReceiveLocation(BDLocation bdLocation) {
-        LocationInfo info = new LocationInfo(bdLocation.getLongitude(), bdLocation.getLatitude(),
+        LocationInfo info = new LocationInfo(bdLocation.getLongitude(), bdLocation.getLatitude(),bdLocation.getRadius(),
             bdLocation.getAddress(), bdLocation.getTime());
-        Log.d("tag", new Gson().toJson(info));
-        tv.setText(tv.getText() + "\n" + new Gson().toJson(info));
+        final String locationStr = new Gson().toJson(info);
+        Log.d("tag", locationStr);
+        runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+            CrashReport.postCatchedException(new RuntimeException(locationStr));
+            tv.setText(tv.getText() + ".");
+          }
+        });
+
+
       }
     });
-    LocationHelper.getInstance().genLocationOption(1, true);
+
+    LocationHelper.getInstance().genLocationOption(600, true);
     LocationHelper.getInstance().start();
   }
+
 
   @Override protected void onDestroy() {
     super.onDestroy();
     LocationHelper.getInstance().removeLocationListener();
     LocationHelper.getInstance().stop();
+  }
+
+  @Override
+  public void onBackPressed() {
+
+  }
+
+  @Override
+  public void finish() {
   }
 }
