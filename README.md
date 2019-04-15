@@ -7,6 +7,6 @@ here is my demo dir
 - **MvvmDemo** MVVM框架demo
 - **TestJetpark** 
 
-## Linux
+## [Linux](./Linux)
 - i2c demo
 - uart demo
